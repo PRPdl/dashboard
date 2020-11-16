@@ -25,7 +25,7 @@
         <v-icon right>login</v-icon>
       </v-btn>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" app absolute  class="blue">
+    <v-navigation-drawer v-model="drawer" app absolute  color="red">
       <p>Test</p>
     </v-navigation-drawer>
   </nav>
