@@ -1,8 +1,7 @@
 <template>
-  <v-container fill-height>
-    
-    
-  </v-container>
+  <v-main>
+      
+  </v-main>
 </template>
 
 <script>
