@@ -30,6 +30,16 @@
       hide-overlay
       src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
     >
+    <v-layout column align-center>
+      <v-flex class="mt-5">
+        <v-avatar
+          size="100" 
+        >
+          <img src="/avatar1.png">
+        </v-avatar>
+        <p  class="white--text subheading mt-1">Mr Perv</p>
+      </v-flex>
+    </v-layout>
       <v-list>
         <v-list-item :key="link.text" v-for="link in links" router :to="link.route">
           <v-list-item-action>

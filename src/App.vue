@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <navbar/>
-    <v-main class="mx-4 mb-4">
+    <v-main class="mx-4 mb-4 grey lighten-4">
     <router-view/>
     </v-main>
   </v-app>
@@ -20,3 +20,7 @@ export default {
   }),
 };
 </script>
+
+<style scoped>
+
+</style>
