@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import login from '../views/Login';
-import home from '../views/Home';
+import dashboard from '../views/Dashboard';
+
 
 
 Vue.use(VueRouter)
@@ -16,14 +17,19 @@ const routes = [
     component: login,
   },
   {
-    path: '/home',
-    name: 'home',
-    component: home,
+    path: '/',
+    name: 'dashboard',
+    component: dashboard,
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/project',
+    name: 'Project',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Project.vue')
+  },
+  {
+    path: '/team',
+    name: 'Team',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Team.vue')
   },
   {
     path: '*',
