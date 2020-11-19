@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1 class="subheading grey--text">Dashboard</h1>
-    <v-container class="my-5">
+    <v-container class="my-5" v-show="dashboard">
       <v-layout row wrap class="mb-3">
         <v-tooltip top>
           <template v-slot:activator="{on}">
@@ -70,44 +70,11 @@
 
 <script>
 /* eslint-disable */
-
+import db from '@/fb'
 export default {
   data() {
     return {
-      projects: [
-        {
-          title: "Design a new website",
-          person: "Mr Pradip Raj Pdl",
-          due: "1st Jan 2019",
-          status: "ongoing",
-          content:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!",
-        },
-        {
-          title: "Code up the homepage",
-          person: "Mr Arjun Pdl",
-          due: "10th Jan 2019",
-          status: "complete",
-          content:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!",
-        },
-        {
-          title: "Design video thumbnails",
-          person: "Mr Prashanta Pdl",
-          due: "20th Dec 2018",
-          status: "complete",
-          content:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!",
-        },
-        {
-          title: "Create a community forum",
-          person: "Mr SB Pdl",
-          due: "20th Oct 2018",
-          status: "overdue",
-          content:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!",
-        },
-      ],
+      projects: [],
     };
   },
   methods: {
@@ -120,6 +87,27 @@ export default {
       this.projects.sort((a, b) => (a[prop] < b[prop] ? -1 : 1));
     },
   },
+
+  computed: {
+    dashboard(){
+     return this.projects.length > 0 ? true : false
+    }
+  },
+
+  created() {
+    db.collection('projects').onSnapshot(res => {
+      const changes = res.docChanges()
+
+      changes.forEach(change => {
+        if(change.type === 'added') {
+          this.projects.push({
+            ...change.doc.data(),
+            id: change.doc.id
+          })
+        }
+      })
+    })
+  }
 };
 </script>
 
