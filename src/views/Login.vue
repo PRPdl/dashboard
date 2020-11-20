@@ -1,36 +1,86 @@
 <template>
-  <v-main>
-      
-  </v-main>
+ <v-layout align-center justify-center>
+   <v-flex xs12 sm12 md6 lg4>
+     <v-card class="text-center" max-width="">
+       <v-card-title primary-title class="justify-center">
+         Login
+       </v-card-title>
+       <v-card-subtitle>
+         Get a <a href="#" class="text-decoration-none">New Account</a>
+       </v-card-subtitle>
+       <v-form ref="loginForm">
+         <v-text-field
+           name="email"
+           label="Email"
+           id="email"
+           :rules="emailRules"
+           v-model="email"
+           class="px-16"
+           prepend-icon="mdi-account-circle"
+         >
+         </v-text-field>
+         <v-text-field
+          class="px-16"
+           name="password"
+           ref="passwordField"
+           v-model="password"
+           :rules="passwordRules"
+           :type="showPassword ? 'text' : 'password'"
+           label="Enter your password"
+           hint="At least 8 characters"
+           min="8"
+           prepend-icon="mdi-lock"
+           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off' "
+           @click:append="showPassword = !showPassword"
+         ></v-text-field>
+         <v-btn color="primary" @click="login">Login</v-btn>
+       </v-form>
+       <v-card-subtitle class="mt-5">
+         Reset Password <a href="#" class="text-decoration-none">here</a>
+       </v-card-subtitle>
+     </v-card>
+   </v-flex>
+  
+ </v-layout>
 </template>
 
 <script>
 /* eslint-disable no-unused-vars */
+import db from '../fb'
 export default {
 name: "login",
   data: () => ({
-    username: '',
+    email: '',
     password: '',
-    error: false
+    error: false,
+    showPassword: false,
+    passwordRules: [
+      v => v && v.length >=8 || "Minimum 8 characters required.",
+    ],
+    emailRules: [
+              v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+
+    ]
+    
   }),
   methods: {
     login() {
-      this.$store.dispatch("LOGIN", {
-        username: this.username,
-        password: this.password
-      })
-      .then(success => {
-        this.$router.push("/")
-      })
-      .catch(error => {
-        this.error = true;
-      })
-    }
-  }
-};
+      db.auth.signInWithEmailAndPassword(this.email, this.password)
+        .then((user) => {
+          console.log(user)
+        }).catch((error) => {
+          console.log(error.code + error.message)
+        })
+      this.$refs.passwordField.reset();
+        }
+}
+
+}
 
 </script>
 
-<style>
-
+<style scoped>
+.layout {
+  height: 100vh;
+}
 </style>

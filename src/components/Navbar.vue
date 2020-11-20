@@ -74,7 +74,7 @@
           <v-avatar size="100">
             <img src="/avatar1.png" />
           </v-avatar>
-          <p class="white--text subheading mt-1">Pradip Raj Poudel</p>
+          <p class="white--text subheading mt-1">{{ loggedInUser }}</p>
         </v-flex>
         <v-flex mt-4 mb-3>
           <popup @projectAdded="snackbar = true, drawer=false" />
@@ -102,20 +102,23 @@
 </template>
 
 <script>
+/* eslint-disable no-unused-vars */
 
 import Popup from './Popup.vue';
+import store from '../store'
 export default {
   components: {
     Popup
   },
   data() {
     return {
-      loggedin: false,
+      loggedInUser: store.state.data.userName,
+      loggedin: store.state.loginStatus,
       drawer: false,
       snackbar:false,
       snackMessage:'New Project added.',
       links: [
-        { icon: "dashboard", text: "Dashboard", route: "/" },
+        { icon: "dashboard", text: "Dashboard", route: "/dashboard" },
         { icon: "folder", text: "My Project", route: "/project" },
         { icon: "person", text: "Team", route: "/team" },
       ],
