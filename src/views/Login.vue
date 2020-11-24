@@ -9,6 +9,8 @@
          Get a <a href="#" class="text-decoration-none">New Account</a>
        </v-card-subtitle>
        <v-form ref="loginForm">
+          <v-card-subtitle v-show="loginError" ref="error" class="red--text">{{ loginError }}</v-card-subtitle>
+
          <v-text-field
            name="email"
            label="Email"
@@ -33,9 +35,9 @@
            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off' "
            @click:append="showPassword = !showPassword"
          ></v-text-field>
-         <v-btn color="primary" @click="login">Login</v-btn>
+         <v-btn color="primary" @click="login" :loading="loginLoading">Login</v-btn>
        </v-form>
-       <v-card-subtitle class="mt-5">
+       <v-card-subtitle>
          Reset Password <a href="#" class="text-decoration-none">here</a>
        </v-card-subtitle>
      </v-card>
@@ -46,34 +48,42 @@
 
 <script>
 /* eslint-disable no-unused-vars */
-import db from '../fb'
+import fb from '@/fb'
+import store from '../store'
+import router from '@/router'
 export default {
 name: "login",
   data: () => ({
     email: '',
     password: '',
-    error: false,
+    loginLoading: false,
+    loginError: '',
     showPassword: false,
     passwordRules: [
       v => v && v.length >=8 || "Minimum 8 characters required.",
     ],
     emailRules: [
-              v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
-
-    ]
+              v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid',
+    ],
+    
     
   }),
   methods: {
     login() {
-      db.auth.signInWithEmailAndPassword(this.email, this.password)
-        .then((user) => {
-          console.log(user)
-        }).catch((error) => {
+      this.loginLoading = true
+      this.$store.dispatch('login', {
+        email: this.email,
+        password: this.password
+      }).catch((error) => {
           console.log(error.code + error.message)
+          this.loginError = error.message
+          this.loginLoading = false
         })
-      this.$refs.passwordField.reset();
-        }
-}
+   //  this.$refs.passwordField.reset();
+        
+    },
+},
+
 
 }
 
@@ -83,4 +93,4 @@ name: "login",
 .layout {
   height: 100vh;
 }
-</style>
+</style> 

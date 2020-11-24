@@ -66,7 +66,7 @@ const routes = [
 ]
 
 function isAuthenticated(){
-  return (store.state.loginStatus === true) ? true : false
+  return (store.state.userProfile.name) ? true : false
 }
 
 

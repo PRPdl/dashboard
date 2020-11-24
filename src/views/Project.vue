@@ -59,7 +59,7 @@ export default {
     },
   },
   created() {
-    db.collection("projects").onSnapshot((res) => {
+    db.db.collection("projects").onSnapshot((res) => {
       const changes = res.docChanges();
 
       changes.forEach((change) => {
@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     deleteProject(docId){
-      db.collection('projects').doc(docId).delete()
+      db.db.collection('projects').doc(docId).delete()
         .then(()=>{
           this.projects= this.projects.filter((project) => {
             return project.id !== docId
@@ -85,7 +85,7 @@ export default {
         }))
     },
     radioChange(project) {
-      db.collection('projects').doc(project.id).update({
+      db.db.collection('projects').doc(project.id).update({
         status : project.status
       }).then(()=>{
         console.log(project.id + "Changed")

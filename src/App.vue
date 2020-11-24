@@ -10,6 +10,7 @@
 
 <script>
 
+//import router from '@/router'
 
 export default {
   components: {  },
@@ -18,6 +19,8 @@ export default {
   data: () => ({
     
   }),
+  
+
 };
 </script>
 

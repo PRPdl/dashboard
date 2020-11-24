@@ -1,14 +1,9 @@
 <template>
   <nav>
     <v-snackbar v-model="snackbar" color="success" timeout="4000" top>
-      {{snackMessage}}
+      {{ snackMessage }}
       <template v-slot:action="{ attrs }">
-        <v-btn
-          color="purple"
-          text
-          v-bind="attrs"
-          @click="snackbar = false"
-        >
+        <v-btn color="purple" text v-bind="attrs" @click="snackbar = false">
           Close
         </v-btn>
       </template>
@@ -24,7 +19,7 @@
       ></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase red--text">
         <span class="font-weight-bold">TOdo:</span>
-        <span>Pradip</span>
+        <span> {{ loggedInUser.split(" ")[0] }}</span>
       </v-toolbar-title>
       <v-spacer />
 
@@ -53,14 +48,9 @@
         </v-menu>
       </div>
 
-      <v-btn v-if="this.loggedin" text color="yellow">
+      <v-btn v-if="this.loggedin" text color="red" @click="logout">
         <span>Sign Out</span>
         <v-icon right>exit_to_app</v-icon>
-      </v-btn>
-
-      <v-btn v-if="!this.loggedin" text color="red">
-        <span>Sign In</span>
-        <v-icon right>login</v-icon>
       </v-btn>
     </v-app-bar>
     <v-navigation-drawer
@@ -71,13 +61,13 @@
     >
       <v-layout column align-center>
         <v-flex class="mt-5">
-          <v-avatar size="100">
+          <v-avatar @click="profile" size="100">
             <img src="/avatar1.png" />
           </v-avatar>
           <p class="white--text subheading mt-1">{{ loggedInUser }}</p>
         </v-flex>
         <v-flex mt-4 mb-3>
-          <popup @projectAdded="snackbar = true, drawer=false" />
+          <popup @projectAdded="(snackbar = true), (drawer = false)" />
         </v-flex>
       </v-layout>
       <v-list>
@@ -104,25 +94,35 @@
 <script>
 /* eslint-disable no-unused-vars */
 
-import Popup from './Popup.vue';
-import store from '../store'
+import Popup from "./Popup.vue";
+import store from "../store";
+import fb from "../fb";
+
 export default {
   components: {
-    Popup
+    Popup,
   },
   data() {
     return {
-      loggedInUser: store.state.data.userName,
-      loggedin: store.state.loginStatus,
+      loggedInUser: store.state.userProfile.name,
+      loggedin: store.state.userProfile,
       drawer: false,
-      snackbar:false,
-      snackMessage:'New Project added.',
+      snackbar: false,
+      snackMessage: "New Project added.",
       links: [
         { icon: "dashboard", text: "Dashboard", route: "/dashboard" },
         { icon: "folder", text: "My Project", route: "/project" },
         { icon: "person", text: "Team", route: "/team" },
       ],
     };
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+    },
+    profile() {
+      
+    },
   },
 };
 </script>
