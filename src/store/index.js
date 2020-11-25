@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+
+import { _ } from 'core-js'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
@@ -11,15 +14,29 @@ export default new Vuex.Store({
 
   state: {
    userProfile: [],
-   info: {}
+   info: {},
+   snackbar: false
    },
   
 
   getters: {
-    
+
   },
 
   actions: {
+
+    async register({dispatch},form) {
+     const {user} = await fb.auth.createUserWithEmailAndPassword(form.email, form.password)
+      
+     await fb.db.collection('users').doc(user.uid).set({
+      name: form.name,
+      email: form.email
+     }).catch((error)=>{
+       console.log(error.message)
+     })
+      router.push('/login')
+    },
+
     async login({dispatch}, form) {
       const {user} = await fb.auth.signInWithEmailAndPassword(form.email, form.password)
 

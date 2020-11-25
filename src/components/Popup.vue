@@ -103,15 +103,17 @@ export default {
          title: this.title,
          content: this.content,
          due: this.due,
-         person: 'Pradip Raj Poudel',
+         person: this.$store.state.userProfile.name,
          status: 'ongoing'
      }
 
-     db.collection('projects').add(project)
+     db.db.collection('projects').add(project)
         .then(()=> {
             this.updateLoader=false
             this.dialog = false
             this.$emit('projectAdded')
+        }).catch((error) => {
+          console.log(error.message)
         })
 
       this.$refs.projectForm.reset()

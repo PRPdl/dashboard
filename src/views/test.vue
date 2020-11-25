@@ -1,14 +1,9 @@
 <template>
   <div class="main">
-     <div class="box">
+     <p class="box d-flex justify-center align-center">
          Box 1
-     </div>
-     <div class="box">
-         BOx 2
-     </div>
-     <div class="box">
-         Box 3
-     </div>
+     </p>
+     
   </div>
 </template>
 
@@ -31,13 +26,10 @@ div.main {
 }
 
 
-div.box {
+p.box {
     border: 1px solid red;
     width: 300px;
     height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 

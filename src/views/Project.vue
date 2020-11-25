@@ -54,7 +54,7 @@ export default {
   computed: {
     myProjects() {
       return this.projects.filter((project) => {
-        return project.person === "Pradip Raj Poudel";
+        return project.person === this.$store.state.userProfile.name;
       });
     },
   },

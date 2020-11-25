@@ -2,6 +2,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import login from '../views/Login';
+import register from '../views/Registration';
 import dashboard from '../views/Dashboard';
 import home from '../views/Home';
 import store from '../store';
@@ -17,6 +18,16 @@ const routes = [
     path: '/login',
     name: 'login',
     component: login,
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: register,
+  },
+  {
+    path: '/reset',
+    name: 'reset',
+  component: () => import('../views/resetPass'),
   },
   {
     path: '/test',

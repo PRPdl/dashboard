@@ -10,6 +10,7 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 Vue.config.productionTip = false
 
+
 let app
 
 fb.auth.onAuthStateChanged(user => {
@@ -23,8 +24,5 @@ app = new Vue({
 
 }
 
-if(user) {
-  store.dispatch('fetchUserProfile', user)
-}
 
 })

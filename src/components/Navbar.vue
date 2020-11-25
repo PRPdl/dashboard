@@ -64,7 +64,7 @@
           <v-avatar @click="profile" size="100">
             <img src="/avatar1.png" />
           </v-avatar>
-          <p class="white--text subheading mt-1">{{ loggedInUser }}</p>
+          <p class="d-flex justify-center white--text">{{ loggedInUser }}</p>
         </v-flex>
         <v-flex mt-4 mb-3>
           <popup @projectAdded="(snackbar = true), (drawer = false)" />
@@ -132,4 +132,5 @@ export default {
   margin-left: 20px;
   margin-top: 20px;
 }
+
 </style>
