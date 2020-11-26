@@ -5,20 +5,15 @@ on:
     branches:
       - main
 
-      build:
-
-    runs-on: ubuntu-latest
-
 
 jobs:
   job1:
     name: npm install && build
-
-
+    build:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [10.19.x]
-
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -34,7 +29,7 @@ jobs:
   job2:
     name: Dispatch to S3
     needs: job1
-  deploy:
+    deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
