@@ -3,7 +3,7 @@
     <v-flex xs12 sm12 md6 lg4>
       <v-card class="text-center" max-width="">
         <v-card-title primary-title class="justify-center">
-          Password Reset
+          Wrong!
         </v-card-title>
         <v-card-subtitle>
           or Just <a href="/login" class="text-decoration-none">Login</a>
