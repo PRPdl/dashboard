@@ -7,10 +7,7 @@ on:
 
 
 jobs:
-  job1:
-    build:
-    name: npm install && build
-    
+    deploy:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -23,17 +20,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm run build
-      env:
-        CI: true
-
-  job2:
-    name: Dispatch to S3
-    needs: job1
-    deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - uses: jakejarvis/s3-sync-action@master
+    - uses: jakejarvis/s3-sync-action@master
+      name: Upload App to s3
         with:
           args: --acl public-read --follow-symlinks --delete --exclude '.git*/*'
         env:
