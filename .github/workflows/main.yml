@@ -14,9 +14,6 @@ jobs:
           uses: actions/setup-node@v1
         - run: npm install
         - run: npm run build
-    deploy:
-      runs-on: ubuntu-latest
-      steps:
         - uses: actions/checkout@master
         - name: Upload
           uses: jakejarvis/s3-sync-action@master
