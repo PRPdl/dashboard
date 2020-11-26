@@ -5,14 +5,15 @@ on:
     branches:
       - main
 
+      build:
+
+    runs-on: ubuntu-latest
+
 
 jobs:
   job1:
     name: npm install && build
 
-  build:
-
-    runs-on: ubuntu-latest
 
     strategy:
       matrix:
