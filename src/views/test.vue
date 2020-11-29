@@ -1,7 +1,7 @@
 <template>
   <div class="main">
      <p class="box d-flex justify-center align-center">
-         Box 1
+        Changes from Developer Branch to test master push
      </p>
      
   </div>
