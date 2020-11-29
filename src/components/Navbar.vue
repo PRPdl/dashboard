@@ -62,7 +62,7 @@
       <v-layout column align-center>
         <v-flex class="mt-5">
           <v-avatar @click="profile" size="100">
-            <img src="/avatar1.png" />
+            <img src="/avatar1.jpg" />
           </v-avatar>
           <p class="d-flex justify-center white--text">{{ loggedInUser }}</p>
         </v-flex>
